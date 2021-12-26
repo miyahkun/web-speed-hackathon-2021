@@ -1,5 +1,5 @@
 import React from 'react';
-import { throttle } from 'lodash-es';
+import { debounce } from 'lodash-es';
 
 /**
  * @typedef {object} Props
@@ -18,24 +18,23 @@ const InfiniteScroll = ({ children, fetchMore, items }) => {
   const prevReachedRef = React.useRef(false);
 
   React.useEffect(() => {
-    const handler = throttle(
-      () => {
-        const hasReached =
-          window.innerHeight + Math.ceil(window.scrollY) >= document.body.offsetHeight - HEIGHT_THRESHOLD;
+    const handler = () => {
+      const hasReached = debounce(
+        () => window.innerHeight + Math.ceil(window.scrollY) >= document.body.offsetHeight - HEIGHT_THRESHOLD,
+        WAIT_MILLI_SEC,
+        { leading: false },
+      );
 
-        // 画面最下部にスクロールしたタイミングで、登録したハンドラを呼び出す
-        if (hasReached && !prevReachedRef.current) {
-          // アイテムがないときは追加で読み込まない
-          if (latestItem !== undefined) {
-            fetchMore();
-          }
+      // 画面最下部にスクロールしたタイミングで、登録したハンドラを呼び出す
+      if (hasReached && !prevReachedRef.current) {
+        // アイテムがないときは追加で読み込まない
+        if (latestItem !== undefined) {
+          fetchMore();
         }
+      }
 
-        prevReachedRef.current = hasReached;
-      },
-      WAIT_MILLI_SEC,
-      { leading: false },
-    );
+      prevReachedRef.current = hasReached;
+    };
 
     // 最初は実行されないので手動で呼び出す
     prevReachedRef.current = false;
