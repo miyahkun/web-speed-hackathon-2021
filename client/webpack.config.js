@@ -28,12 +28,16 @@ const config = {
       'jquery-binarytransport',
       path.resolve(SRC_PATH, './index.css'),
       path.resolve(SRC_PATH, './buildinfo.js'),
-      path.resolve(SRC_PATH, './index.jsx'),
+      path.resolve(SRC_PATH, './index.tsx'),
     ],
   },
   mode: 'none',
   module: {
     rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        use: [{ loader: 'ts-loader' }],
+      },
       {
         exclude: /node_modules/,
         test: /\.jsx?$/,
