@@ -9,7 +9,7 @@ import { convertImage } from '../../converters/convert_image';
 import { UPLOAD_PATH } from '../../paths';
 
 // 変換した画像の拡張子
-const EXTENSION = 'webp';
+const EXTENSIONS = ['jpg', 'webp'];
 
 const router = Router();
 
@@ -23,17 +23,25 @@ router.post('/images', async (req, res) => {
 
   const imageId = uuidv4();
 
-  const converted = await convertImage(req.body, {
-    // 画像の拡張子を指定する
-    extension: EXTENSION,
-    // 画像の縦サイズを指定する (undefined は元画像に合わせる)
-    height: undefined,
-    // 画像の横サイズを指定する (undefined は元画像に合わせる)
-    width: undefined,
-  });
+  EXTENSIONS.forEach(async (ext, i) => {
+    let converted;
+    if (i === 0) {
+      converted = await convertImage(req.body, {
+        extension: ext,
+        height: undefined,
+        width: undefined,
+      });
+    } else {
+      converted = await convertImage(req.body, {
+        extension: ext,
+        height: 600,
+        width: 600,
+      });
+    }
 
-  const filePath = path.resolve(UPLOAD_PATH, `./images/${imageId}.${EXTENSION}`);
-  await fs.writeFile(filePath, converted);
+    const filePath = path.resolve(UPLOAD_PATH, `./images/${imageId}.${ext}`);
+    await fs.writeFile(filePath, converted);
+  });
 
   return res.status(200).type('application/json').send({ id: imageId });
 });
