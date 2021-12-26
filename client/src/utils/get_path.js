@@ -1,9 +1,19 @@
 /**
- * @param {string} imageId
- * @returns {string}
+ * @typedef {object} ImagePathSet
+ * @property {string} webp
+ * @property {string} jpg
  */
+
+/**
+ * @param {string} imageId
+ * @returns {ImagePathSet}
+ */
+
 function getImagePath(imageId) {
-  return `/images/${imageId}.jpg`;
+  return {
+    webp: `/images/${imageId}.webp`,
+    jpg: `/images/${imageId}.jpg`,
+  };
 }
 
 /**
