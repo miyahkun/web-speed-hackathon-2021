@@ -11,6 +11,7 @@
 
 function getImagePath(imageId) {
   return {
+    avif: `/images/${imageId}.avif`,
     webp: `/images/${imageId}.webp`,
     jpg: `/images/${imageId}.jpg`,
   };

@@ -16,7 +16,7 @@ const CoveredImage = ({ alt, src }) => {
   return (
     <div className="relative w-full h-full overflow-hidden">
       <picture>
-        <source alt={alt} srcSet={src.webp} className={imgClass} />
+        <source alt={alt} srcSet={src.avif} className={imgClass} />
         <img alt={alt} src={src.jpg} className={imgClass} />
       </picture>
     </div>
