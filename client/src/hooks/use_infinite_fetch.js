@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LIMIT = 10;
+const LIMIT = 7;
 
 /**
  * @template T
@@ -41,12 +41,14 @@ export function useInfiniteFetch(apiPath, fetcher) {
       offset,
     };
 
-    const promise = fetcher(apiPath);
+    const url = `${apiPath}?limit=${LIMIT}&offset=${offset}`;
+
+    const promise = fetcher(url);
 
     promise.then((allData) => {
       setResult((cur) => ({
         ...cur,
-        data: [...cur.data, ...allData.slice(offset, offset + LIMIT)],
+        data: [...cur.data, ...allData],
         isLoading: false,
       }));
       internalRef.current = {

@@ -7,7 +7,6 @@ import { useFetch } from '../../hooks/use_fetch';
 import { fetchJSON } from '../../utils/fetchers';
 
 const TimelineContainer = React.lazy(() => import('../TimelineContainer'));
-console.log('TimelineContainer', TimelineContainer);
 const UserProfileContainer = React.lazy(() => import('../UserProfileContainer'));
 const TermContainer = React.lazy(() => import('../TermContainer'));
 const PostContainer = React.lazy(() => import('../PostContainer'));

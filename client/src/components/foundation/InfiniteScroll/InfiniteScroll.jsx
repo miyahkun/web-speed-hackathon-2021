@@ -9,7 +9,7 @@ import { throttle } from 'lodash-es';
  */
 
 const HEIGHT_THRESHOLD = 500;
-const WAIT_MILLI_SEC = 300;
+const WAIT_MILLI_SEC = 500;
 
 /** @type {React.VFC<Props>} */
 const InfiniteScroll = ({ children, fetchMore, items }) => {
@@ -17,25 +17,34 @@ const InfiniteScroll = ({ children, fetchMore, items }) => {
 
   const prevReachedRef = React.useRef(false);
 
-  const scrollHandler = React.useCallback(
-    throttle(() => {
+  const scrollThrottle = throttle(
+    () => {
       const hasReached =
         window.innerHeight + Math.ceil(window.scrollY) >= document.body.offsetHeight - HEIGHT_THRESHOLD;
 
       // 画面最下部にスクロールしたタイミングで、登録したハンドラを呼び出す
       if (hasReached && !prevReachedRef.current) {
-        fetchMore();
+        if (typeof latestItem !== undefined) {
+          fetchMore();
+        }
       }
 
       prevReachedRef.current = hasReached;
-    }, WAIT_MILLI_SEC),
-    [],
+    },
+    WAIT_MILLI_SEC,
+    { leading: false, trailing: true },
   );
+
+  const scrollHandler = React.useMemo(() => scrollThrottle, [prevReachedRef]);
 
   React.useEffect(() => {
     // 最初は実行されないので手動で呼び出す
     prevReachedRef.current = false;
     scrollHandler();
+
+    return () => {
+      scrollHandler.cancel();
+    };
   }, []);
 
   React.useEffect(() => {
@@ -49,6 +58,7 @@ const InfiniteScroll = ({ children, fetchMore, items }) => {
       document.removeEventListener('touchmove', scrollHandler);
       document.removeEventListener('resize', scrollHandler);
       document.removeEventListener('scroll', scrollHandler);
+      scrollHandler.cancel();
     };
   });
 
