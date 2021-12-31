@@ -30,7 +30,7 @@ const init = async () => {
 
       ffmpeg.FS('writeFile', basename, await fetchFile(source));
 
-      await ffmpeg.run('-i', basename, '-c:a', 'libfdk_aac', '-b:a', '128k', output(basename));
+      await ffmpeg.run('-i', basename, '-c:a', 'libfdk_aac', '-b:a', '32k', '-vn', output(basename));
       await fs.writeFile(target, ffmpeg.FS('readFile', output(basename)));
 
       ffmpeg.FS('unlink', basename);
