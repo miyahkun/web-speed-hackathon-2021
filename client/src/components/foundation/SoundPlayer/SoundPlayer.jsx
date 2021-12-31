@@ -62,14 +62,18 @@ const SoundPlayer = ({ sound }) => {
       <div className="flex flex-col flex-grow flex-shrink pt-2 min-w-0 h-full">
         <p className="whitespace-nowrap text-sm font-bold overflow-hidden overflow-ellipsis">{sound.title}</p>
         <p className="text-gray-500 whitespace-nowrap text-sm overflow-hidden overflow-ellipsis">{sound.artist}</p>
-        <div className="relative pt-2 w-full pb-10%">
-          <div className="absolute inset-0 w-full h-full">
-            <SoundWaveSVG soundData={data} />
-          </div>
-          <div
-            className="absolute inset-0 w-full h-full bg-gray-300 opacity-75"
-            style={{ left: `${currentTimeRatio * 100}%` }}
-          ></div>
+        <div className="pt-2">
+          <AspectRatioBox aspectHeight={1} aspectWidth={10}>
+            <div className="relative w-full h-full">
+              <div className="absolute inset-0 w-full h-full">
+                <SoundWaveSVG soundData={data} />
+              </div>
+              <div
+                className="absolute inset-0 w-full h-full bg-gray-300 opacity-75"
+                style={{ left: `${currentTimeRatio * 100}%` }}
+              ></div>
+            </div>
+          </AspectRatioBox>
         </div>
       </div>
     </div>
