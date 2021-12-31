@@ -33,9 +33,18 @@ const PausableMovie = ({ src }) => {
   }, []);
 
   return (
-    <AspectRatioBox aspectHeight={1} aspectWidth={1}>
-      <button className="group relative block w-full h-full" onClick={handleClick} type="button">
-        <video ref={videoRef} autoPlay loop muted playsInline disablePictureInPicture preload="none">
+    <div className="relative pt-100% w-full aspect-square">
+      <button className="group block w-full h-full" onClick={handleClick} type="button">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          disablePictureInPicture
+          preload="none"
+          className="absolute top-0 right-0 bottom-0 left-0"
+        >
           <source src={src.webm} />
           <img src={src.gif} alt="" />
         </video>
@@ -50,7 +59,7 @@ const PausableMovie = ({ src }) => {
           <FontAwesomeIcon iconType={isPlaying ? 'pause' : 'play'} styleType="solid" />
         </div>
       </button>
-    </AspectRatioBox>
+    </div>
   );
 };
 

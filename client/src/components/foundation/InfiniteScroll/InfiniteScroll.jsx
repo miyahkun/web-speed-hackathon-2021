@@ -1,5 +1,5 @@
 import React from 'react';
-import { debounce } from 'lodash-es';
+import { throttle } from 'lodash-es';
 
 /**
  * @typedef {object} Props
@@ -8,7 +8,7 @@ import { debounce } from 'lodash-es';
  * @property {() => void} fetchMore
  */
 
-const HEIGHT_THRESHOLD = 200;
+const HEIGHT_THRESHOLD = 500;
 const WAIT_MILLI_SEC = 300;
 
 /** @type {React.VFC<Props>} */
@@ -17,42 +17,40 @@ const InfiniteScroll = ({ children, fetchMore, items }) => {
 
   const prevReachedRef = React.useRef(false);
 
-  React.useEffect(() => {
-    const handler = () => {
-      const hasReached = debounce(
-        () => window.innerHeight + Math.ceil(window.scrollY) >= document.body.offsetHeight - HEIGHT_THRESHOLD,
-        WAIT_MILLI_SEC,
-        { leading: false },
-      );
+  const scrollHandler = React.useCallback(
+    throttle(() => {
+      const hasReached =
+        window.innerHeight + Math.ceil(window.scrollY) >= document.body.offsetHeight - HEIGHT_THRESHOLD;
 
       // 画面最下部にスクロールしたタイミングで、登録したハンドラを呼び出す
       if (hasReached && !prevReachedRef.current) {
-        // アイテムがないときは追加で読み込まない
-        if (latestItem !== undefined) {
-          fetchMore();
-        }
+        fetchMore();
       }
 
       prevReachedRef.current = hasReached;
-    };
+    }, WAIT_MILLI_SEC),
+    [],
+  );
 
+  React.useEffect(() => {
     // 最初は実行されないので手動で呼び出す
     prevReachedRef.current = false;
-    handler();
+    scrollHandler();
+  }, []);
 
-    // FIXME:
-    document.addEventListener('wheel', handler, { passive: false });
-    document.addEventListener('touchmove', handler, { passive: false });
-    document.addEventListener('resize', handler, { passive: false });
-    document.addEventListener('scroll', handler, { passive: false });
+  React.useEffect(() => {
+    document.addEventListener('wheel', scrollHandler, { passive: false });
+    document.addEventListener('touchmove', scrollHandler, { passive: false });
+    document.addEventListener('resize', scrollHandler, { passive: false });
+    document.addEventListener('scroll', scrollHandler, { passive: false });
+
     return () => {
-      // FIXME:
-      document.removeEventListener('wheel', handler);
-      document.removeEventListener('touchmove', handler);
-      document.removeEventListener('resize', handler);
-      document.removeEventListener('scroll', handler);
+      document.removeEventListener('wheel', scrollHandler);
+      document.removeEventListener('touchmove', scrollHandler);
+      document.removeEventListener('resize', scrollHandler);
+      document.removeEventListener('scroll', scrollHandler);
     };
-  }, [latestItem, fetchMore]);
+  });
 
   return <>{children}</>;
 };
