@@ -60,8 +60,8 @@ const SoundPlayer = ({ sound }) => {
         </button>
       </div>
       <div className="flex flex-col flex-grow flex-shrink pt-2 min-w-0 h-full">
-        <p className="whitespace-nowrap text-sm font-bold overflow-hidden overflow-ellipsis">{sound.title}</p>
-        <p className="text-gray-500 whitespace-nowrap text-sm overflow-hidden overflow-ellipsis">{sound.artist}</p>
+        <p className="whitespace-nowrap text-sm font-bold overflow-hidden overflow-ellipsis h-5">{sound.title}</p>
+        <p className="text-gray-500 whitespace-nowrap text-sm overflow-hidden overflow-ellipsis h-5">{sound.artist}</p>
         <div className="pt-2">
           <AspectRatioBox aspectHeight={1} aspectWidth={10}>
             <div className="relative w-full h-full">
