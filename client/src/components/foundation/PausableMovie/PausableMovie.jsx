@@ -22,7 +22,6 @@ const PausableMovie = ({ src }) => {
   const videoRef = React.useRef(null);
 
   const handleClick = React.useCallback(() => {
-    console.log('handleClick', isPlaying);
     setIsPlaying((isPlaying) => {
       if (isPlaying) {
         videoRef.current.pause();

@@ -51,13 +51,9 @@ const init = async () => {
     };
   });
 
-  console.log('promises', promises);
-
   for await (const res of asyncGen(promises)) {
     result.push(res);
   }
-
-  console.log('result', result);
 
   process.exit(0);
 };
