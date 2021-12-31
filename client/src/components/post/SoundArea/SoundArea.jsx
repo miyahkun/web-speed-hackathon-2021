@@ -10,10 +10,7 @@ import { SoundPlayer } from '../../foundation/SoundPlayer';
 /** @type {React.VFC<Props>} */
 const SoundArea = ({ sound }) => {
   return (
-    <div
-      className="relative w-full h-full border border-gray-300 bg-gray-300 rounded-lg overflow-hidden"
-      style={{ height: '102.59px' }}
-    >
+    <div className="relative w-full h-full border border-gray-300 bg-gray-300 rounded-lg overflow-hidden">
       <SoundPlayer sound={sound} />
     </div>
   );
