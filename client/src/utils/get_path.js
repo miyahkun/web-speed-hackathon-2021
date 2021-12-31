@@ -1,6 +1,6 @@
 /**
  * @typedef {object} ImagePathSet
- * @property {string} webp
+ * @property {string} avif
  * @property {string} jpg
  */
 
@@ -12,7 +12,6 @@
 function getImagePath(imageId) {
   return {
     avif: `/images/${imageId}.avif`,
-    webp: `/images/${imageId}.webp`,
     jpg: `/images/${imageId}.jpg`,
   };
 }
@@ -43,11 +42,21 @@ function getSoundPath(soundId) {
 }
 
 /**
- * @param {string} profileImageId
- * @returns {string}
+ * @typedef {object} ProfileImagePathSet
+ * @property {string} avif
+ * @property {string} jpg
  */
+
+/**
+ * @param {string} imageId
+ * @returns {ProfileImagePathSet}
+ */
+
 function getProfileImagePath(profileImageId) {
-  return `/images/profiles/${profileImageId}.jpg`;
+  return {
+    avif: `/images/profiles/${profileImageId}.avif`,
+    jpg: `/images/profiles/${profileImageId}.jpg`,
+  };
 }
 
 export { getImagePath, getMoviePath, getSoundPath, getProfileImagePath };
