@@ -18,11 +18,20 @@ function getImagePath(imageId) {
 }
 
 /**
+ * @typedef {object} MoviePathSet
+ * @property {string} gif
+ * @property {string} webm
+ */
+
+/**
  * @param {string} movieId
- * @returns {string}
+ * @returns {MoviePathSet}
  */
 function getMoviePath(movieId) {
-  return `/movies/${movieId}.gif`;
+  return {
+    gif: `/movies/${movieId}.gif`,
+    webm: `/movies/${movieId}.webm`,
+  };
 }
 
 /**
