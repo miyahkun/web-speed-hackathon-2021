@@ -15,13 +15,14 @@ import { FontAwesomeIcon } from '../FontAwesomeIcon';
  */
 const PausableMovie = ({ src }) => {
   const [isPlaying, setIsPlaying] = React.useState(() => {
-    return !!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   });
 
   /** @type {React.MutableRefObject<HTMLVideoElement>} */
   const videoRef = React.useRef(null);
 
   const handleClick = React.useCallback(() => {
+    console.log('handleClick', isPlaying);
     setIsPlaying((isPlaying) => {
       if (isPlaying) {
         videoRef.current.pause();
