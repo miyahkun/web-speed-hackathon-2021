@@ -11,7 +11,7 @@ import { SoundPlayer } from '../../foundation/SoundPlayer';
 const SoundArea = ({ sound }) => {
   return (
     <div
-      className="relative w-full h-full border border-gray-300 rounded-lg overflow-hidden"
+      className="relative w-full h-full border border-gray-300 bg-gray-300 rounded-lg overflow-hidden"
       style={{ height: '102.59px' }}
     >
       <SoundPlayer sound={sound} />
