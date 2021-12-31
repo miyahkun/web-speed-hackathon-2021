@@ -31,7 +31,7 @@ const config = {
       path.resolve(SRC_PATH, './index.tsx'),
     ],
   },
-  mode: 'none',
+  mode: process.env.NODE_ENV || 'development',
   module: {
     rules: [
       {
@@ -54,7 +54,7 @@ const config = {
     ],
   },
   output: {
-    filename: 'scripts/[name].js',
+    filename: 'scripts/[name].[contenthash].js',
     path: DIST_PATH,
   },
   plugins: [
@@ -71,11 +71,12 @@ const config = {
       NODE_ENV: 'development',
     }),
     new MiniCssExtractPlugin({
-      filename: 'styles/[name].css',
+      filename: 'styles/[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
-      inject: false,
+      inject: 'head',
       template: path.resolve(SRC_PATH, './index.html'),
+      hash: true,
     }),
   ],
   resolve: {
