@@ -54,6 +54,7 @@ const config = {
     ],
   },
   output: {
+    publicPath: '/',
     filename: 'scripts/[name].[contenthash].js',
     path: DIST_PATH,
   },
