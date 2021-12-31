@@ -16,7 +16,7 @@ import { SoundWaveSVG } from '../SoundWaveSVG';
  * @type {React.VFC<Props>}
  */
 const SoundPlayer = ({ sound }) => {
-  const { data, isLoading } = useFetch(getSoundPath(sound.id), fetchBinary);
+  const { data, isLoading } = useFetch(getSoundPath(sound.id).aac, fetchBinary);
 
   const blobUrl = React.useMemo(() => {
     return data !== null ? URL.createObjectURL(new Blob([data])) : null;

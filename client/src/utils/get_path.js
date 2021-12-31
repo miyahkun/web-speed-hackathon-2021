@@ -34,11 +34,20 @@ function getMoviePath(movieId) {
 }
 
 /**
+ * @typedef {object} SoundPathSet
+ * @property {string} mp3
+ * @property {string} aac
+ */
+
+/**
  * @param {string} soundId
- * @returns {string}
+ * @returns {SoundPathSet}
  */
 function getSoundPath(soundId) {
-  return `/sounds/${soundId}.mp3`;
+  return {
+    mp3: `/sounds/${soundId}.mp3`,
+    aac: `/sounds/${soundId}.aac`,
+  };
 }
 
 /**
