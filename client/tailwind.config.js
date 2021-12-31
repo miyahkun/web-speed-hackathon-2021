@@ -1,6 +1,6 @@
 module.exports = {
   darkMode: false,
-  purge: ['./src/index.html'],
+  purge: [],
   theme: {
     extend: {
       spacing: {
