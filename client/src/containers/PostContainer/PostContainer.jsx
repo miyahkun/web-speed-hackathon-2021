@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
@@ -7,7 +7,8 @@ import { PostPage } from '../../components/post/PostPage';
 import { useFetch } from '../../hooks/use_fetch';
 import { useInfiniteFetch } from '../../hooks/use_infinite_fetch';
 import { fetchJSON } from '../../utils/fetchers';
-import { NotFoundContainer } from '../NotFoundContainer';
+import {} from '../NotFoundContainer';
+const NotFoundContainer = React.lazy(() => import('../NotFoundContainer'));
 
 /** @type {React.VFC} */
 const PostContainer = () => {
@@ -26,7 +27,11 @@ const PostContainer = () => {
   }
 
   if (post === null) {
-    return <NotFoundContainer />;
+    return (
+      <Suspense fallback={<div></div>}>
+        <NotFoundContainer />
+      </Suspense>
+    );
   }
 
   return (
