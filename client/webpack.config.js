@@ -59,6 +59,7 @@ const config = {
     path: DIST_PATH,
   },
   plugins: [
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ja/),
     new webpack.ProvidePlugin({
       $: 'jquery',
       AudioContext: ['standardized-audio-context', 'AudioContext'],

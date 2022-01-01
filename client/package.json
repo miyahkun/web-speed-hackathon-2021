@@ -7,7 +7,7 @@
     "*.css"
   ],
   "scripts": {
-    "analyze": "cross-env NODE_ENV=development webpack --analyze",
+    "analyze": "cross-env NODE_ENV=production webpack --analyze",
     "prebuild": "rimraf ../dist",
     "build": "cross-env NODE_ENV=production webpack",
     "develop": "cross-env NODE_ENV=development webpack serve"
@@ -61,6 +61,7 @@
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4",
     "webpack": "5.64.2",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "4.9.1",
     "webpack-dev-server": "4.5.0"
   },
