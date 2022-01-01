@@ -20,7 +20,6 @@ async function prepareSoundStats() {
 
 async function insertSeeds() {
   const sounds = await prepareSoundStats();
-  console.log('sounds', sounds);
 
   await ProfileImage.bulkCreate(profileImages, { logging: false });
   await Image.bulkCreate(images, { logging: false });
