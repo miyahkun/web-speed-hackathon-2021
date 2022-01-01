@@ -26,6 +26,7 @@
     "http-errors": "1.8.1",
     "iconv-lite": "0.6.3",
     "jschardet": "3.0.0",
+    "lodash": "^4.17.21",
     "mkdirp": "1.0.4",
     "music-metadata": "7.11.4",
     "npm-run-all": "4.1.5",
@@ -47,7 +48,8 @@
     "@types/serve-static": "1.13.10",
     "@types/sharp": "0.29.4",
     "@types/sqlite3": "3.1.7",
-    "@types/uuid": "8.3.3"
+    "@types/uuid": "8.3.3",
+    "web-audio-api": "^0.2.2"
   },
   "engines": {
     "node": "16.x.x"

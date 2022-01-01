@@ -1,12 +1,13 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
-import { sequelize } from '../sequelize';
+import { sequelize } from '../sequelize.js';
 
 /**
  * @typedef {object} SoundAttributes
  * @property {string} id
  * @property {string} title
  * @property {string} artist
+ * @property {json} stats
  */
 
 /**
@@ -30,6 +31,11 @@ const Sound = sequelize.define('Sound', {
     allowNull: false,
     defaultValue: 'Unknown',
     type: DataTypes.STRING,
+  },
+  stats: {
+    allowNull: false,
+    defaultValue: {},
+    type: DataTypes.JSON,
   },
 });
 
