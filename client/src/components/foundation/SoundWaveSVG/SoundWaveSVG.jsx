@@ -1,34 +1,4 @@
-import { map as lMap, mean as lMean, chunk as lChunk, max as lMax, zip as lZip } from 'lodash-es';
 import React from 'react';
-
-/**
- * @param {ArrayBuffer} data
- * @returns {Promise<{ max: number, peaks: number[] }}
- */
-async function calculate(data) {
-  const audioCtx = new AudioContext();
-
-  // 音声をデコードする
-  /** @type {AudioBuffer} */
-  const buffer = await new Promise((resolve, reject) => {
-    audioCtx.decodeAudioData(data.slice(0), resolve, reject);
-  });
-  // 左の音声データの絶対値を取る
-  const leftData = lMap(buffer.getChannelData(0), Math.abs);
-  // 右の音声データの絶対値を取る
-  const rightData = lMap(buffer.getChannelData(1), Math.abs);
-
-  // 左右の音声データの平均を取る
-  const normalized = lMap(lZip(leftData, rightData), lMean);
-  // 100 個の chunk に分ける
-  const chunks = lChunk(normalized, Math.ceil(normalized.length / 100));
-  // chunk ごとに平均を取る
-  const peaks = lMap(chunks, lMean);
-  // chunk の平均の中から最大値を取る
-  const max = lMax(peaks);
-
-  return { max, peaks };
-}
 
 /**
  * @typedef {object} Props
@@ -38,15 +8,14 @@ async function calculate(data) {
 /**
  * @type {React.VFC<Props>}
  */
-const SoundWaveSVG = ({ soundData }) => {
+const SoundWaveSVG = ({ stats }) => {
   const uniqueIdRef = React.useRef(Math.random().toString(16));
   const [{ max, peaks }, setPeaks] = React.useState({ max: 0, peaks: [] });
 
   React.useEffect(() => {
-    calculate(soundData).then(({ max, peaks }) => {
-      setPeaks({ max, peaks });
-    });
-  }, [soundData]);
+    const soundStats = stats;
+    setPeaks({ max: soundStats['max'], peaks: soundStats['peaks'] });
+  }, [stats]);
 
   return (
     <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 1">
