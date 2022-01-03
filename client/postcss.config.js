@@ -1,6 +1,7 @@
 const postcssImport = require('postcss-import');
 const postcssPresetEnv = require('postcss-preset-env');
 const tailwindcss = require('tailwindcss');
+const cssnano = require('cssnano');
 
 const purgecss = require('@fullhuman/postcss-purgecss')({
   content: ['./public/**/*.html', './src/**/*.jsx'],
@@ -22,6 +23,9 @@ module.exports = {
     ...(process.env.NODE_ENV === 'production' ? [purgecss] : []),
     postcssPresetEnv({
       stage: 3,
+    }),
+    cssnano({
+      preset: 'default',
     }),
   ],
 };
