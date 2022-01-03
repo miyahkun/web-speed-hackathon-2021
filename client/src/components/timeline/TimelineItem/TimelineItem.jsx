@@ -90,7 +90,7 @@ const TimelineItem = ({ post }) => {
             </div>
           ) : null}
           {post.sound ? (
-            <div className="relative mt-2 w-full" style={{ aspectRatio: '496 / 102.59' }}>
+            <div className="relative mt-2 w-full">
               <SoundArea sound={post.sound} />
             </div>
           ) : null}
