@@ -1,11 +1,8 @@
 {
   "private": true,
   "name": "@web-speed-hackathon-2021/client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MPL-2.0",
-  "sideEffects": [
-    "*.css"
-  ],
   "scripts": {
     "analyze": "cross-env NODE_ENV=production webpack --analyze",
     "prebuild": "rimraf ../dist",
