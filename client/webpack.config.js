@@ -30,6 +30,7 @@ const config = {
       path.resolve(SRC_PATH, './buildinfo.js'),
       path.resolve(SRC_PATH, './index.tsx'),
     ],
+    webfont: path.resolve(SRC_PATH, './styles/webfont.css'),
   },
   mode: process.env.NODE_ENV || 'development',
   module: {
