@@ -42,12 +42,10 @@ const PausableMovie = ({ src }) => {
           muted
           playsInline
           disablePictureInPicture
-          preload="none"
+          preload="metadata"
           className="absolute top-0 right-0 bottom-0 left-0"
-        >
-          <source src={src.webm} />
-          <img src={src.gif} alt="" />
-        </video>
+          src={src.webm}
+        />
         <div
           className={classNames(
             'absolute left-1/2 top-1/2 flex items-center justify-center w-16 h-16 text-white text-3xl bg-black bg-opacity-50 rounded-full transform -translate-x-1/2 -translate-y-1/2',
